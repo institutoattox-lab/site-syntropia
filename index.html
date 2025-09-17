@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syntropia - A Clínica Certa em Segundos</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 77, 71, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-icon i {
+            color: white !important;
+            font-size: 1.2rem;
+        }
+        
+        .whatsapp-header {
+            background: #25d366;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .whatsapp-header:hover {
+            transform: scale(1.05);
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1a4d47 0%, #2d7a6f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.08"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+            opacity: 0.4;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.2rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            opacity: 0;
+            animation: slideUp 1s ease 0.3s forwards;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.6rem);
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            font-weight: 400;
+            opacity: 0;
+            animation: slideUp 1s ease 0.6s forwards;
+        }
+        
+        .btn {
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            opacity: 0;
+            animation: slideUp 1s ease 0.9s forwards;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #22c55e;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary:hover {
+            background: #f8fafc;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 4rem;
+        }
+        
+        .stat {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            min-width: 220px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            animation: slideUp 1s ease forwards;
+        }
+        
+        .stat:nth-child(1) { animation-delay: 1.2s; }
+        .stat:nth-child(2) { animation-delay: 1.5s; }
+        .stat:nth-child(3) { animation-delay: 1.8s; }
+        
+        .stat h2 {
+            font-size: 2.5rem;
+            margin: 0 0 0.5rem 0;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        
+        .stat p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+        
+        /* Sections */
+        .section {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        
+        .pain {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            position: relative;
+        }
+        
+        .pain::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="white" opacity="0.05"/></pattern></defs><rect width="100%" height="100%" fill="url(%23dots)"/></svg>');
+        }
+        
+        .pain-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        
+        .pain .section-title {
+            color: white;
+        }
+        
+        .pain-description {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+        
+        .pain-emotions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .emotion {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fecaca;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 500;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            font-size: 1rem;
+        }
+        
+        .journey {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        
+        .journey .section-title {
+            background: linear-gradient(135deg, #1a4d47, #2d7a6f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .journey-steps {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #4ade80;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+        
+        .step-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #475569;
+            margin: 0;
+        }
+        
+        .cta {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="waves" width="100" height="50" patternUnits="userSpaceOnUse"><path d="M0 25 Q25 0 50 25 T100 25" stroke="white" stroke-width="1" fill="none" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23waves)"/></svg>');
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta .section-title {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+        
+        .cta .btn-primary {
+            background: white;
+            color: #22c55e;
+            font-size: 1.3rem;
+            padding: 1.3rem 3rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: #94a3b8;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: #4ade80;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: #4ade80;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 2rem;
+            color: #64748b;
+        }
+        
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.8rem 0;
+            }
+            
+            .nav {
+                padding: 0 1rem;
+            }
+            
+            .whatsapp-header {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .hero {
+                padding: 5rem 1rem 3rem;
+                min-height: 90vh;
+            }
+            
+            .section {
+                padding: 4rem 1rem;
+            }
+            
+            .stats {
+                gap: 1rem;
+            }
+            
+            .stat {
+                padding: 1.5rem;
+                min-width: 180px;
+            }
+            
+            .step {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .journey-steps {
+                text-align: center;
+            }
+            
+            .btn {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+            
+            .whatsapp-float {
+                width: 55px;
+                height: 55px;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .stat h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                Syntropia
+            </a>
+            <a href="https://wa.me/556281328453" target="_blank" class="whatsapp-header">
+                <i class="fab fa-whatsapp"></i>
+                24h
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Precisa internar alguém que você ama?</h1>
+            <p class="hero-subtitle">Em menos de 30 segundos conectamos você à clínica certa. Sem enrolação. Sem repetir a dor.</p>
+            <a href="https://wa.me/556281328453" target="_blank" class="btn btn-primary">
+                <i class="fab fa-whatsapp"></i> 
+                Falar agora no WhatsApp
+            </a>
+            <div class="stats">
+                <div class="stat">
+                    <h2>12M</h2>
+                    <p>brasileiros lutam contra dependência química, alcoolismo e depressão</p>
+                </div>
+                <div class="stat">
+                    <h2>89%</h2>
+                    <p>das famílias não sabem onde buscar ajuda</p>
+                </div>
+                <div class="stat">
+                    <h2>&lt;30s</h2>
+                    <p>tempo médio de resposta</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain Section -->
+    <section class="section pain fade-in">
+        <div class="pain-content">
+            <h2 class="section-title">A Dor Invisível</h2>
+            <p class="pain-description">
+                Você já pesquisou "clínica de reabilitação perto de mim" às 3h da manhã sem saber em quem confiar? 
+                Essa é a dor silenciosa de milhões de famílias brasileiras lidando com dependência química, alcoolismo e depressão.
+            </p>
+            <div class="pain-emotions">
+                <span class="emotion">Medo</span>
+                <span class="emotion">Solidão</span>
+                <span class="emotion">Exaustão</span>
+                <span class="emotion">Desespero</span>
+                <span class="emotion">Confusão</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Section -->
+    <section class="section journey fade-in">
+        <h2 class="section-title">A Jornada da Transformação</h2>
+        <div class="journey-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p><strong>Um pedido de ajuda.</strong> Uma vida pode mudar. Você nos encontra e diz: "Preciso de ajuda".</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <p><strong>Resposta em segundos.</strong> Humana. Precisa. Nossa IA responde com empatia e precisão cirúrgica.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <p><strong>32 critérios analisados.</strong> Localização, idade, substância, orçamento: tudo considerado para o match perfeito.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <p><strong>A clínica certa.</strong> Não qualquer uma. A que vai funcionar especificamente para o seu caso.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <p><strong>Apoio contínuo.</strong> Mesmo depois da internação. Monitoramento, orientação e presença em cada etapa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta fade-in">
+        <div class="cta-content">
+            <h2>Cada segundo conta</h2>
+            <p>Conecte-se agora com a clínica certa para quem você ama. Nossa equipe está disponível 24/7 para transformar desespero em esperança.</p>
+            <a href="https://wa.me/556281328453" target="_blank" class="btn btn-primary">
+                <i class="fab fa-whatsapp"></i> 
+                Falar agora no WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Syntropia</h3>
+                <p>Conectando famílias à solução certa através de inteligência artificial com empatia.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <a href="https://wa.me/556281328453">
+                    <i class="fab fa-whatsapp"></i> +55 62 8132-8453
+                </a>
+                <a href="mailto:contato@syntropia.com.br">
+                    <i class="fas fa-envelope"></i> contato@syntropia.com.br
+                </a>
+                <a href="https://instagram.com/institutosyntropia" target="_blank">
+                    <i class="fab fa-instagram"></i> @institutosyntropia
+                </a>
+            </div>
+            <div class="footer-section">
+                <h3>Ajuda</h3>
+                <a href="#">Como Funciona</a>
+                <a href="#">Perguntas Frequentes</a>
+                <a href="#">Termos de Uso</a>
+                <a href="#">Política de Privacidade</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Syntropia. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/556281328453" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(26, 77, 71, 0.98)';
+            } else {
+                header.style.background = 'rgba(26, 77, 71, 0.95)';
+            }
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+"Adicionar site Syntropia"
